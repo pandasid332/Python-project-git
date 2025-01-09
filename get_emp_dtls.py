@@ -18,7 +18,14 @@ def get_employee_details(employee_id):
         cursor = connection.cursor()
 
         # Query to get employee details
-        query = "select e.empno,e.ename emp_name,e.job,coalesce(e1.ename,'He is the CEO') mgr_name,e.hiredate,e.sal from emp e join emp e1 on e.mgr=e1.empno(+) where e.empno = :emp_id"
+        query = ''' select e.empno,e.ename emp_name,e.job,coalesce(e1.ename,
+                        'He is the CEO') mgr_name,e.hiredate,e.sal,d.dname,d.loc 
+                    from emp e
+                    join emp e1
+                    on e.mgr=e1.empno(+)
+                    join dept d
+                    on d.deptno=e.deptno
+                    where e.empno=:emp_id'''
         cursor.execute(query, emp_id=employee_id)
 
         # Fetch the employee details
@@ -34,6 +41,8 @@ def get_employee_details(employee_id):
             print("Employee manager:", employee_details[3])
             print("Hire Date:", employee_details[4])
             print("Employee salary:", employee_details[5])
+            print("Department name:", employee_details[6])
+            print("Department location:", employee_details[7])
             print()
             print("*******************************************")
         else:
