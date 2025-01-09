@@ -18,7 +18,7 @@ def get_employee_details(employee_id):
         cursor = connection.cursor()
 
         # Query to get employee details
-        query = "SELECT * FROM emp WHERE empno = :emp_id"
+        query = "select e.empno,e.ename emp_name,e.job,coalesce(e1.ename,'He is the CEO') mgr_name,e.hiredate,e.sal from emp e join emp e1 on e.mgr=e1.empno(+) where e.empno = :emp_id"
         cursor.execute(query, emp_id=employee_id)
 
         # Fetch the employee details
