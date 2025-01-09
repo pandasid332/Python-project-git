@@ -26,12 +26,16 @@ def get_employee_details(employee_id):
         
         if employee_details:
             print("Employee Details:")
+            print("*******************************************")
+            print()
             print("Employee ID:", employee_details[0])
             print("Employee Name:", employee_details[1])
             print("Employee job:", employee_details[2])
             print("Employee manager:", employee_details[3])
             print("Hire Date:", employee_details[4])
             print("Employee salary:", employee_details[5])
+            print()
+            print("*******************************************")
         else:
             print("No employee found with ID:", employee_id)
         
